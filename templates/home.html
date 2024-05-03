@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<p>User: {% if id == -1 %}Guest{% else %}{{ u }}{% endif %}</p>
+<div id="lesson-choices" class="card">
+    <div class="card-body">
+        <h5><em>Menu Items:</em></h5>
+        <ul>
+            {% for item in show %}
+                <li>{{ item }}: <a href="{{ url_for( show[item][0]) }}">{{ show[item][1]}} </a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+{% endblock %}
