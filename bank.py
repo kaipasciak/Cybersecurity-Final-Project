@@ -92,6 +92,7 @@ def login():
     global permission
     global userId
 
+    # -1 is the userId value indicating a guest user
     if userId != -1:
         flash("Already logged in!")
         return render_template('home.html',
@@ -105,6 +106,7 @@ def login():
     global permissions
     global incorrect
 
+    # Load user data into permissions dictionary
     try:
         conn = sqlite3.connect('accounts.db')
         c = conn.cursor()
@@ -308,12 +310,14 @@ def add_user(username, password):
 def generate_strong_password():
     """ Generate a strong password """
 
+    # Characters is a string that holds all letters, numbers and special characters
     characters = ""
     characters += string.ascii_letters + string.digits + "!@#$%^&*"
     password = ""
     for i in range(20):
         password += random.choice(characters)
 
+    # Call itself until the generated password satisfies requirements
     if password_strength(password) == False:
         password = generate_strong_password()
     return password
